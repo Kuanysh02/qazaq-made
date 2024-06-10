@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="../css/orders.css" />
+    <link rel="stylesheet" type="text/css" href="../css/layout.css" />
+    <title>Orders</title>
+</head>
+<body>
+
+<%- include("includes/navbar.ejs") %>
+
+<section class="shop-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="orders_container">
+                    <div class="orders_title">My Orders</div>
+                    <p class="orders_d">Here you can view the details of your past orders.</p>
+                    <div class="orders_items">
+                        <% orders.forEach(order => { %>
+                        <div class="order_container mb-4">
+                            <div class="order_title">Order ID: <%= order._id %> | Status: <%= order.status %></div>
+                            <div class="order_total">Total Price: <%= order.totalPrice %> $</div>
+                            <ul>
+                                <% order.items.forEach(item => { %>
+                                <li class="order_item clearfix">
+                                    <div class="order_item_image"><img src="<%= item.product.productImg %>" alt=""></div>
+                                    <div class="order_item_info d-flex flex-md-row flex-column justify-content-between">
+                                        <div class="order_item_name order_info_col">
+                                            <div class="order_item_title">Name</div>
+                                            <div class="order_item_text"><%= item.product.name %></div>
+                                        </div>
+                                        <div class="order_item_quantity order_info_col">
+                                            <div class="order_item_title">Quantity</div>
+                                            <div class="order_item_text"><%= item.quantity %></div>
+                                        </div>
+                                        <div class="order_item_price order_info_col">
+                                            <div class="order_item_title">Price</div>
+                                            <div class="order_item_text"><%= item.price %> $</div>
+                                        </div>
+                                        <div class="order_item_total order_info_col">
+                                            <div class="order_item_title">Subtotal</div>
+                                            <div class="order_item_text"><%= item.price * item.quantity %> $</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                        <% }); %>
+                    </div>
+                    <div class="orders_buttons">
+                        <a href="/products"><button type="button" class="button orders_button_clear">Continue Shopping</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("includes/footer.ejs") %>
+
+</body>
+</html>

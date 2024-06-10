@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,600;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --main-color: #b98219;
+  --main-bg: #efefef;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  min-height: 100vh;
+}
+
+.section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.gray-bg {
+  background-color: white;
+}
+
+.btn {
+  background-color: var(--main-color);
+  color: white;
+  outline: none;
+  border: none;
+  padding: 7px 18px;
+  margin: 1rem;
+  border-radius: 50px;
+}
+h6 {
+  font-size: 16px !important;
+  font-weight: 100 !important;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+img {
+  max-width: 50%;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.about-avatar {
+  margin-left: 280px;
+}
+
+.about-text h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 35px;
+  font-weight: 400;
+}
+@media (max-width: 767px) {
+  .about-text h3 {
+    font-size: 35px;
+  }
+}
+.about-text h6 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+@media (max-width: 767px) {
+  .about-text h6 {
+    font-size: 18px;
+  }
+}
+.about-text p {
+  font-size: 18px;
+  max-width: 450px;
+}
+.about-text p mark {
+  font-weight: 600;
+  color: black;
+}
+
+.about-list {
+  padding-top: 10px;
+}
+.about-list .media {
+  padding: 5px 0;
+}
+.about-list label {
+  color: black;
+  font-weight: 600;
+  width: 88px;
+  margin: 0;
+  position: relative;
+}
+
+.about-list p {
+  margin: 0;
+  font-size: 15px;
+  color: #6f8ba4;
+}
+
+@media (max-width: 991px) {
+  .about-avatar {
+    margin-top: 30px;
+    margin-left: 0;
+  }
+}

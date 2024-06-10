@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,600;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --main-color: #b98219;
+    --main-bg: #efefef;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.about-us-section {
+    display: flex;
+    background-color: #efefef;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+.about-us-section h2{
+    font-family: 'Poppins', sans-serif;
+    margin-top: 5rem;
+}
+.services-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    margin-top: 2rem;
+}
+.service {
+    height: 8rem;
+    width: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 5px 30px 5px rgba(0, 0, 0, 0.11);
+    transition: all 0.25s ease;
+    border-radius: 5%;
+    margin: 1rem 1rem 3rem;
+    background-color: #f8f8f8;
+}
+.service > i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--main-color);
+}
+.service > h4 {
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+.service:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+.service:hover > i {
+    color: white;
+}
+
+.shop-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.shop-section > h2 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 2rem;
+}
+.shop-section > p {
+    text-align: center;
+}
+
+.shop-section > img {
+    width: 500px;
+    padding-bottom: 50px;
+}
+
+.brands-container > img {
+    width: 150px;
+    filter: grayscale(100%);
+    opacity: 0.5;
+}
+.our-brands-section {
+    background-color: #efefef;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    text-align: center;
+}
+.our-brands-section h2{
+    font-family: 'Poppins', sans-serif;
+    padding-bottom: 12px;
+}
+.brands-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 795px) {
+    .brands-container > img {
+        width: 100px;
+        margin: 1rem;
+    }
+}
+@media (max-width: 515px) {
+    .about-us-section > p,
+    .our-brands-section > p,
+    .shop-section > p {
+        font-size: 12px;
+    }
+}

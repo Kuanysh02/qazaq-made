@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="css/products.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <title>Products</title>
+</head>
+<body>
+
+<%- include("includes/navbar.ejs") %>
+
+<section class="shop-section">
+
+    <h2 id="title">Products</h2>
+
+    <div id="filterAndSearchContainer">
+        <form action="/products" id="filterForm" class="button-container">
+            <input type="hidden" name="type" id="type">
+            <button id="all" class="button active" onclick="filterProducts(null)">Show all</button>
+            <button id="hard" class="button" onclick="filterProducts('hard')">Hard</button>
+            <button id="decorative" class="button" onclick="filterProducts('decorative')">Decorative</button>
+            <button id="textile" class="button" onclick="filterProducts('textile')">Textile</button>
+        </form>
+        
+        <form action="/products" method="get" class="search-form">
+            <input type="text" name="name" id="searchInput" placeholder="Search products...">
+            <button id="searchButton" type="submit">Search</button>
+        </form>
+    </div>
+    
+    <div class="shop-products-container">
+        <label for="data" class="form-label"></label>
+        <div class="row">
+        <% if(Array.isArray(product) && product.length > 0) { %>
+            <% for(let i = 0; i < product.length; i++) { %>
+                <div class="col-sm-4">
+                    <div class="<%= product[i].type %>">
+                        <div class="thumb-wrapper">
+                            <div class="img-box">
+                                <img src="<%= product[i].productImg %>" class="img-responsive" />
+                            </div>
+                            <div class="thumb-content">
+                                <h4><%= product[i].name %></h4>
+                                <p><%= product[i].description %></p>
+                                <a href="/products/<%= product[i]._id %>">More detail...</a>
+                                <p class="item-price">
+                                    <strike style="font-size: 12px;"><%= product[i].price * 1.8 %>$</strike>
+                                    <b style="font-size: 16px;"><%= product[i].price %>$</b>
+                                </p>
+                                <form action="/cart" method="post">
+                                    <input type="hidden" name="productId" value="<%= product[i]._id %>">
+                                    <input type="hidden" name="name" value="<%= product[i].name %>">
+                                    <input type="hidden" name="type" value="<%= product[i].type %>">
+                                    <input type="hidden" name="price" value="<%= product[i].price %>">
+                                    <input type="hidden" name="productImg" value="<%= product[i].productImg %>">
+                                    <button class="button" type="submit">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="col-12">
+                <img src="https://stores.blackberrys.com/VendorpageTheme/Enterprise/EThemeForBlackberrys/images/product-not-found.jpg" alt="No products found" class="no-products-img" />
+            </div>
+        <% } %>
+        </div>
+    </div>
+</section>
+
+<%- include("includes/footer.ejs") %>
+
+<script>
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("searchInput");
+        const nameQuery = getQueryParam("name");
+        const typeQuery = getQueryParam("type");
+
+        if (nameQuery) {
+            searchInput.value = nameQuery;
+        }
+        if (typeQuery) {
+            const activeButton = document.querySelector(".button.active");
+            if (activeButton) {
+                activeButton.classList.remove("active");
+            }
+            const selectedButton = document.getElementById(typeQuery);
+            if (selectedButton) {
+                selectedButton.classList.add("active");
+            }
+        }
+    });
+
+
+    function filterProducts(type) {
+        document.getElementById('type').value = type;
+        document.getElementById('filterForm').submit();
+    }
+</script>
+
+</body>
+</html>

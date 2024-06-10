@@ -1,0 +1,554 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a REST API documentation to Sneakshop Store. You can find out more about this web application. Link to the main page [Sneakshop](http://localhost:3000).",
+    "version": "1.0.0",
+    "title": "SneakShop REST API Documentation",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "zhasulanov04@list.ru"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "Product",
+      "description": "API for product page in the system"
+    },
+    {
+      "name": "Auth",
+      "description": "API for authorization & authentication in the system"
+    },
+    {
+      "name": "User",
+      "description": "API for authorized user to control his/her data in the system"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get all products in system",
+        "operationId": "getAllProducts",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get all product in system",
+        "operationId": "getProductById",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Accepts some changes to product",
+        "description": "",
+        "operationId": "updateProduct",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product id to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Deletes a product",
+        "description": "",
+        "operationId": "deleteProduct",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products/add": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Add to system a new product",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created"
+          },
+          "401": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login to a system with already registered account",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Login successfully"
+          },
+          "401": {
+            "description": "Invalid email/password"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register to the system & create account",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "To user that uses Google Oauth to get access to the store",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation done successfully"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout from your account",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Session is over"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all users in system",
+        "description": "",
+        "operationId": "getAllUsers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get only one in system",
+        "operationId": "getUserById",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Deletes a user in the system",
+        "description": "",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get main page about yourself",
+        "operationId": "getProfile",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Deletes a user itself/by admin",
+        "description": "",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/profile/edit": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Accepts some changes to user profile",
+        "description": "",
+        "operationId": "updateUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "objectId"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "format": "symbol"
+        },
+        "googleId": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "productImg": {
+          "type": "string",
+          "format": "path"
+        }
+      },
+      "xml": {
+        "name": "Product"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

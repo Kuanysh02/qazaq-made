@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">QazaqMade</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">All products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact us</a>
+                </li>
+            </ul>
+
+            <% if (!isAuthenticated) { %>
+                <div class="d-flex nav-icons">
+                    <a href="/auth/login" class="nav-link-profile">Login | </a>
+                    <a href="/auth/register" class="nav-link-profile">Register <i class="fas fa-user"></i></a>
+                </div>
+            <% } else { %>
+                <div class="d-flex nav-icons">
+                    <!-- <a href="/cart" class="nav-link">My Cart <i class="fas fa-shopping-cart"></i></a> -->
+                    <a href="/profile" class="nav-link-profile">Profile | </a>
+                    <form action="/auth/logout" method="post">
+                        <button type="submit" class="logout">Logout <i class="fas fa-user"></i></button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</nav>

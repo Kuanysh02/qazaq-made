@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <title>QazaqMade</title>
+</head>
+<body>
+
+    <%- include("includes/navbar.ejs") %>
+
+    <header class="hero-section">
+        <div class="hero-text-container">
+            <h3>Crafting Traditions, Crafting Dreams</h3>
+            <p>Welcome to <b>QazaqMade</b>, your premier marketplace for exquisite handcrafted products. Discover a world of unique artistry and craftsmanship, curated for those who appreciate the beauty of handmade creations. <br> <br> From intricate jewelry to finely crafted home decor, each item tells a story and carries the passion of its maker. Shop with us and support talented artisans while bringing a touch of artistry into your life. Explore the beauty of handmade at QazaqMade.
+            </p>
+        </div>
+        <div class="hero-img-container">
+            <img src="https://abc.detios.ru/i/ltr/yurta.png" alt="" />
+        </div>
+    </header>
+
+    <section class="featured-product-section" id="featured-products">
+        <h2>Recently Added Products</h2>
+        <div class="featured-container">
+            <div class="row">
+                <% if (Array.isArray(mydata) && mydata.length > 0) { %>
+                    <% mydata.slice(-3).reverse().forEach(product => { %>
+                        <div class="col-sm-4">
+                            <div class="filter <%= product.type %>">
+                                <div class="thumb-wrapper">
+                                    <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                    <div class="img-box">
+                                        <img src="<%= product.productImg %>" class="img-responsive" alt="<%= product.name %>" />
+                                    </div>
+                                    <div class="thumb-content">
+                                        <h4><%= product.name %></h4>
+                                        <p><%= product.description %></p>
+                                        <p class="item-price">
+                                            <strike><%= (product.price * 1.8).toFixed(2) %>$</strike>
+                                            <b><%= product.price %>$</b>
+                                        </p>
+                                        <a href="/products"><button class="button">Add to Cart</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="col-12 text-center">
+                        <img src="https://stores.blackberrys.com/VendorpageTheme/Enterprise/EThemeForBlackberrys/images/product-not-found.jpg" alt="No products found" class="no-products-img" />
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <%- include("includes/footer.ejs") %>
+
+</body>
+</html>
